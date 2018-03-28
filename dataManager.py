@@ -6,7 +6,7 @@ class DataManager:
 	def __init__(self):
 		self.rootLevels = ['796', '798']
 		self.__data = self.__load()
-		self.lastFolderID = ''
+		self.__newData = []
 		
 	def __load(self):
 		file = editor.get_path()
@@ -23,6 +23,9 @@ class DataManager:
 				return yaml.load(file)
 			except yaml.YAMLError as exc:
 				print(exc)
+				
+	def getNewData(self):
+		return self.__newData
 			
 	def save(self):
 		with open("objetivoData.yml", 'w') as outfile:
@@ -43,16 +46,22 @@ class DataManager:
 		print("new link")
 		if link not in data[folderID]:
 			data[folderID].append(link)
+			self.__newData.append(link)	
 			
 		self.__data = data
 				
 	def checkForChanges(self, link, folderID):
 		data = self.__data
+		hasChanges = False
 
 		if folderID not in data.keys():
 			self.addFolder(folderID)
+			hasChanges = True
 
 		if link not in data[folderID]:
 			self.addLinkToFolder(link, folderID)
+			hasChanges = True
+			
+		return hasChanges
 				
 				

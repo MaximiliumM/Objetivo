@@ -28,12 +28,16 @@ def checkForUpdates(levels):
 		
 		for link in links:
 			print("current level: %s, current link: %s" % (level, link))
-			manager.checkForChanges(link, level)
-			
+			if manager.checkForChanges(link, level) and 'pdf' in link:
+				print('dowloading new link')
+				#download(link)
+				
 			if 'pdf' not in link:
 				checkForUpdates(links)
+				
 
 
-checkForUpdatesForContentID('665')	
-#checkForUpdates(manager.rootLevels)
+
+#checkForUpdatesForContentID('796')	
+checkForUpdates(manager.rootLevels)
 #manager.save()

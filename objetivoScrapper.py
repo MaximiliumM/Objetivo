@@ -15,7 +15,6 @@ class Scrapper(object):
 	def getLinksFromContentID(self, contentID):
 		html = self.getHTMLFromContentID(contentID)
 		return self.getAllContentIDsFromHTML(html)
-
 	
 	def getHTMLFromContentID(self, contentID):
 		content_url = "http://www.objetivo.br/conteudo.asp?ref=cont&id=%s" % contentID 
@@ -35,5 +34,5 @@ class Scrapper(object):
 				else:
 					if "conteudo" in href:
 						contentIDs.append(href.split("id=")[1])
-
+						
 		return contentIDs
